@@ -6,7 +6,8 @@
 
 
 	const url = require('url');
-
+	
+	const StringDecoder = require('string_decoder').StringDecoder;
 
 	// The server should respond to all requests with a string
 	
@@ -34,12 +35,27 @@
 
 		console.log("These are the headers:",headers);
 
+		// Get the payload if any
+		const decoder = new StringDecoder('utf-8');
+		let buffer = '';
+		req.on('data',(data)=>{
+			
+			buffer+=data;
+			//buffer+=decoder.write(data);
+		})
+		
+		req.on('end',()=>{
 
-		res.end('Hello World!');
+			res.end('Hello World!');
 
-		// Log the received path
+			// Log the received path
 									
-		console.log("request received on path: "+trimmedPath+" with method "+method);
+			console.log("request received on path: "+trimmedPath+" with method "+method);
+			
+			console.log("data received: ",buffer);
+		});	
+
+
 
 
 		})
