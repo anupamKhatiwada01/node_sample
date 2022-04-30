@@ -17,6 +17,9 @@ const handlers = {
   },
   notFound: function(data, callback) {
     callback(404);
+  },
+  money: function(data,callback){
+    callback(200, {'name': 'money handler'});
   }
 
 };
@@ -27,7 +30,8 @@ const handlers = {
 const router = {
 
   'sample': handlers.sample,
-  'notFound': handlers.notFound
+  // 'notFound': handlers.notFound
+  'money' : handlers.money
 }
 
 // The server should respond to all requests with a string
@@ -76,10 +80,14 @@ const server = http.createServer((req, res) => {
     // console.log("This is the tye ",typeof(router[trimmedPath]));
 
     // Choose the handler this request should got to. If one is not available use the not found handler
-    const chosenHandler = typeof (router[trimmedPath]) !== undefined ? router[trimmedPath] : router.notFound;
+    // const chosenHandler = typeof (router[trimmedPath]) !== undefined ? router[trimmedPath] : handlers['notFound'];
+
+    // The issue with the above code was that the typeof function would not return undefined in most cases above so it would return router[trimmedPath] which for routes other than sample or money would be undefined. Thus chosen handler would be undefined and alling it would cause an error. This shows us the complicacies of using operators such as typeof and how we should be very careful of the subtle errors we insert in our own code
+
+    const chosenHandler = Object.keys(router).includes(trimmedPath)?router[trimmedPath]:handlers.notFound;
     // With the above step we  ahve chosen a handler
     // Next we need to construct the data object to send to the handler
-    console.log(handlers);
+    console.log(chosenHandler);
     const data = {
       'trimmedPath': trimmedPath,
       'queryStringObject': queryStringObject,
@@ -98,7 +106,7 @@ const server = http.createServer((req, res) => {
 
       // Convert the payload to string
       const payloadString = JSON.stringify(payload);
-
+      res.setHeader('content-type','application/json');
       res.writeHead(statusCode);
       res.end(payloadString);
 
