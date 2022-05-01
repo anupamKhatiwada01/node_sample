@@ -11,15 +11,18 @@ const StringDecoder = require('string_decoder').StringDecoder;
 
 const handlers = {
 
-  sample: function(data, callback) {
-    // Callback a http request and a payload
-    callback(200, { 'name': 'sample handler' });
-  },
+  // sample: function(data, callback) {
+  //   // Callback a http request and a payload
+  //   callback(200, { 'name': 'sample handler' });
+  // },
   notFound: function(data, callback) {
     callback(404);
   },
-  money: function(data,callback){
-    callback(200, {'name': 'money handler'});
+  // money: function(data,callback){
+  //   callback(200, {'name': 'money handler'});
+  // }
+  ping: function(data,callback){
+    callback(200);
   }
 
 };
@@ -31,8 +34,11 @@ const router = {
 
   'sample': handlers.sample,
   // 'notFound': handlers.notFound
-  'money' : handlers.money
+  'ping' : handlers.ping
 }
+
+
+const config = require("./config.js");
 
 // The server should respond to all requests with a string
 
@@ -126,7 +132,7 @@ const server = http.createServer((req, res) => {
 
 
 
-server.listen(3000, () => console.log("The server is listening on port 3000 now"));
+server.listen(config.port, () => console.log(`The server is listening on port ${config.port} now and the evironment is ${config.envName}`));
 
 	// Lets define a request router
 	// const handlers = {};
