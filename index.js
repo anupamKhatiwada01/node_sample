@@ -12,23 +12,27 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const _data = require("./lib/data");
 
 // Testing
-_data.create('test','newFile',{'foo':'bar'},function(error){
-    if(error) console.log("This is the error",error);
-    else console.log("The application is working properly");
+// _data.create('test','newFile',{'foo':'bar'},function(error){
+//     if(error) console.log("This is the error",error);
+//     else console.log("The application is working properly");
+// })
+
+// _data.read('test','newFile',function(err,data){
+//     console.log("This is the error",err);
+//     console.log("this is the data",data)
+// })
+
+_data.update('test','newFile',{"lund":"lelo"},function(err){
+    if(err) console.log("This is the error while updating.");
+    else console.log("The file is properly updated.");
 })
 
 const handlers = {
 
-  // sample: function(data, callback) {
-  //   // Callback a http request and a payload
-  //   callback(200, { 'name': 'sample handler' });
-  // },
   notFound: function(data, callback) {
     callback(404);
   },
-  // money: function(data,callback){
-  //   callback(200, {'name': 'money handler'});
-  // }
+ 
   ping: function(data,callback){
     callback(200);
   }
