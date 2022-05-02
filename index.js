@@ -9,6 +9,14 @@ const url = require('url');
 
 const StringDecoder = require('string_decoder').StringDecoder;
 
+const _data = require("./lib/data");
+
+// Testing
+_data.create('test','newFile',{'foo':'bar'},function(error){
+    if(error) console.log("This is the error",error);
+    else console.log("The application is working properly");
+})
+
 const handlers = {
 
   // sample: function(data, callback) {
