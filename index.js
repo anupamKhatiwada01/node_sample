@@ -22,9 +22,14 @@ const _data = require("./lib/data");
 //     console.log("this is the data",data)
 // })
 
-_data.update('test','newFile',{"lund":"lelo"},function(err){
-    if(err) console.log("This is the error while updating.");
-    else console.log("The file is properly updated.");
+// _data.update('test','newFile',{"lund":"lelo"},function(err){
+//     if(err) console.log("This is the error while updating.");
+//     else console.log("The file is properly updated.");
+// })
+
+_data.delete('test','newFile',function(err){
+    if(!err) console.log("The file is deleted successfully");
+    else console.log("This is the error in the file ",err);
 })
 
 const handlers = {
