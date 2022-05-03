@@ -9,7 +9,11 @@ const url = require('url');
 
 const StringDecoder = require('string_decoder').StringDecoder;
 
-const _data = require("./lib/data");
+const config = require("./config.js");
+
+const handlers = require("./lib/handlers.js");
+
+// const _data = require("./lib/data");
 
 // Testing
 // _data.create('test','newFile',{'foo':'bar'},function(error){
@@ -27,22 +31,22 @@ const _data = require("./lib/data");
 //     else console.log("The file is properly updated.");
 // })
 
-_data.delete('test','newFile',function(err){
-    if(!err) console.log("The file is deleted successfully");
-    else console.log("This is the error in the file ",err);
-})
+// _data.delete('test','newFile',function(err){
+//     if(!err) console.log("The file is deleted successfully");
+//     else console.log("This is the error in the file ",err);
+// })
 
-const handlers = {
+// const handlers = {
 
-  notFound: function(data, callback) {
-    callback(404);
-  },
+//   notFound: function(data, callback) {
+//     callback(404);
+//   },
  
-  ping: function(data,callback){
-    callback(200);
-  }
+//   ping: function(data,callback){
+//     callback(200);
+//   }
 
-};
+// };
 
 
 
@@ -55,7 +59,6 @@ const router = {
 }
 
 
-const config = require("./config.js");
 
 // The server should respond to all requests with a string
 
